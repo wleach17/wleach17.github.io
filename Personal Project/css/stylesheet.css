@@ -1,0 +1,28 @@
+body {
+  padding: 5% 10% 5% 10%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+table, th, td {
+  border: 1 px solid black;
+}
+
+th, td {
+  padding: 2px;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+a:link {
+  color: blue;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: purple;
+  background-color: transparent;
+  text-decoration: underline;
+}
