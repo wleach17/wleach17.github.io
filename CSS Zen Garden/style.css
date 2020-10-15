@@ -1,0 +1,120 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.summary, .preamble, .supporting, footer {
+	padding: 0 175px 0 110px;
+	margin: 0;
+	position: relative;
+  color: whitesmoke;
+	}
+
+body {
+  font: 75% Times New Roman;
+  line-height: 1;
+  color: black;
+  margin: 0;
+  padding: 0;
+  background-image: url(https://i.pinimg.com/originals/36/33/b7/3633b7d5e53740775fed073b8add89da.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  opacity: 0.7;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 250%;
+  color: lightgrey;
+  border-style: ridge;
+  border-width: 5px;
+  border-color: gold;
+}
+
+@keyframes changingColor {
+  0% {color: red;}
+  25% {color: yellow;}
+  50% {color: aqua;}
+  100% {color: lime;}
+}
+
+@keyframes movingText {
+  0% {left: 0px;}
+  25% {left: 100px;}
+  50% {left: 200px;}
+  75% {left: 100px;}
+  100% {left: 0px;}
+}
+
+a {
+  color: deepskyblue;
+}
+
+a:hover {
+  animation-name: changingColor;
+  animation-duration:5s;
+  animation-iteration-count: infinite;
+}
+
+h2 {
+  font-size: 400%;
+  top: 0px;
+  max-width: 1ch;
+  float: left;
+  color: gold;
+  word-break: break-all;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 125%;
+  margin-left: 10px;
+  position: relative;
+  color: white;
+}
+
+h3:hover {
+  animation-name: movingText;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+p {
+  margin-top: 0;
+  text-align: justify;
+}
+
+footer {
+	text-align: center;
+	}
+
+footer a:link, footer a:visited {
+	margin-right: 50px;
+  font-size: 200%;
+	}
+
+.summary {
+	margin: auto;
+	width: 160px;
+	}
+
+.summary p {
+	font: oblique 1.0em/1.5 Courier New;
+	text-align: center;
+	}
+
+.sidebar {
+  margin-left: 600px;
+  position: absolute;
+  top: 200px;
+  right: 0;
+}
+
+.sidebar .wrapper {
+  background: linear-gradient( darkcyan, gold);
+  padding: 10px;
+  width: 130px;
+}
