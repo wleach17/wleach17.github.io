@@ -16,11 +16,16 @@ body {
   color: black;
   margin: 0;
   padding: 0;
-  background-image: url(https://i.pinimg.com/originals/36/33/b7/3633b7d5e53740775fed073b8add89da.jpg);
+  background-image: url(https://wallpapercave.com/wp/wp4570372.png);
+  background-size: 100% 100%;
+
+/*https://i.pinimg.com/originals/36/33/b7/3633b7d5e53740775fed073b8add89da.jpg*/
+
+/*https://ae01.alicdn.com/kf/HTB1I6SUNVXXXXXcXXXXq6xXFXXXw/beibehang-Custom-photo-background-wallpaper-landscape-waterfall-background-wall-mural-3D-large-mural-wall-paper-papel.jpg_960x960.jpg*/
+
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
-  opacity: 0.7;
+  opacity: 1.0;
 }
 
 h1 {
@@ -28,10 +33,10 @@ h1 {
   margin-top: 50px;
   margin-bottom: 50px;
   font-size: 250%;
-  color: lightgrey;
+  color: darkgreen;
   border-style: ridge;
   border-width: 5px;
-  border-color: gold;
+  border-color: darkred;
 }
 
 @keyframes changingColor {
@@ -64,9 +69,10 @@ h2 {
   top: 0px;
   max-width: 1ch;
   float: left;
-  color: gold;
+  color: darkred;
   word-break: break-all;
   text-transform: uppercase;
+  opacity: 0.7;
 }
 
 h3 {
@@ -74,6 +80,7 @@ h3 {
   margin-left: 10px;
   position: relative;
   color: white;
+  font-style: italic;
 }
 
 h3:hover {
@@ -92,8 +99,8 @@ footer {
 	}
 
 footer a:link, footer a:visited {
-	margin-right: 50px;
-  font-size: 200%;
+	margin-right: 0px;
+  font-size: 150%;
 	}
 
 .summary {
@@ -114,7 +121,8 @@ footer a:link, footer a:visited {
 }
 
 .sidebar .wrapper {
-  background: linear-gradient( darkcyan, gold);
+  background: linear-gradient( black, darkred);
   padding: 10px;
   width: 130px;
+  opacity: 0.7;
 }
