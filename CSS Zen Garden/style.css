@@ -91,9 +91,7 @@ h3 {
 }
 
 h3:hover {
-  animation-name: movingText;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
+  font-size: 150%;
 }
 
 p {
