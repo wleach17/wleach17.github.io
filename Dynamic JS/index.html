@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Simon Says</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</head>
+<body id="body" onload="headerAnimation()">
+
+<div id="header">
+    <h1><img id="left-side" height="50px" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/751540ab-b919-4075-b9ce-6567a67b2f7c/d2kcxsi-34b14e91-2ec7-4175-8cbc-584c3bfbb800.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzUxNTQwYWItYjkxOS00MDc1LWI5Y2UtNjU2N2E2N2IyZjdjXC9kMmtjeHNpLTM0YjE0ZTkxLTJlYzctNDE3NS04Y2JjLTU4NGMzYmZiYjgwMC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.Tm-mIp3XgmChDw3X_GR5FTxp9PPv7UeCouKooJFPQ2s" alt="gumball machine"><span id="S">S</span><span id="i">i</span><span id="m">m</span><span id="o">o</span><span id="n">n</span> <span id="S2">S</span><span id="a">a</span><span id="y">y</span><span id="s">s</span><img id="right-side" height="50px" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/751540ab-b919-4075-b9ce-6567a67b2f7c/d2kcxsi-34b14e91-2ec7-4175-8cbc-584c3bfbb800.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzUxNTQwYWItYjkxOS00MDc1LWI5Y2UtNjU2N2E2N2IyZjdjXC9kMmtjeHNpLTM0YjE0ZTkxLTJlYzctNDE3NS04Y2JjLTU4NGMzYmZiYjgwMC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.Tm-mIp3XgmChDw3X_GR5FTxp9PPv7UeCouKooJFPQ2s" alt="gumball machine"></h1>
+    <h2>This game requires patience and mental fortitude</h2>
+
+</div>
+
+<div class="menu-select">
+    <!--
+      To-Do:
+      - create buttons: play, customize, demo, rules, history
+      - style buttons: rounded, bright borders (neon), size, float
+      - when button is clicked, change visibility of buttons to hidden and display next event
+      - make button hover highlight
+     -->
+    <div class="play-button">
+        <button id="play-button" onclick="playGame(false)">Play</button>
+    </div>
+
+    <div class="customize-button">
+        <button id="customize-button" onclick="customize()">Customize</button>
+    </div>
+
+    <div class="demo-button">
+        <button id="demo-button" onclick="playGame(true)">Demo</button>
+    </div>
+
+    <div class="rules-button">
+        <button id="rules-button" onclick="rules()">Rules</button>
+    </div>
+
+    <div class="history-button">
+        <button id="history-button" onclick="history()">History</button>
+    </div>
+</div>
+
+<div class="rules">
+    <h1>Rules of the game:</h1>
+    <ol>
+        <li>Wait for each button to light up then dim down before pressing button.</li>
+        <li>The sequence must be pressed correctly in order to keep playing.</li>
+        <li>If any mistake is made, the buttons will flash, and the game will be over.</li>
+        <li>Have fun!</li>
+    </ol>
+    <button class="back-home" onclick="showMenu()">Back to home</button>
+</div>
+
+<div class="demo">
+    <h1>Demo</h1>
+</div>
+
+<div class="play">
+    <h1>Play</h1>
+</div>
+
+<div class="customize">
+    <h1>Custom Options</h1>
+    <button class="back-home" onclick="showMenu()">Back to home</button>
+
+    <div class="play-speed">
+        <h2>Play Speed</h2>
+        <p>Drag the slider to display the game's speed.</p>
+        <input type="range" min="0.2" max="2.0" step="0.2" value="1" class="slider" id="range1" oninput="sliderValue()">
+        <p>Value: <span id="slide1">1X</span></p>
+    </div>
+
+    <div class="board-size">
+        <h2>Board Size</h2>
+        <p>Drag the slider to display the game's board size.</p>
+        <input type="range" min="0.2" max="2.0" step="0.2" value="1" class="slider" id="range2" oninput="sliderValue()">
+        <p>Value: <span id="slide2">1X</span></p>
+    </div>
+
+    <div class="color-picker">
+        <h2>Pick button colors</h2>
+
+        <form action="/action_page.php">
+            <input type="radio" id="red" name="color-selection" value="Red/Green/Yellow/Blue">
+            <label for="Red/Green/Yellow/Blue">Red/Green/Yellow/Blue</label><br>
+            <input type="radio" id="purple" name="color-selection" value="Orchid/Lime/Gold/Turqoise">
+            <label for="Orchid/Lime/Gold/Turqoise">Orchid/Lime/Gold/Turqoise</label><br>
+            <input type="radio" id="OrangeRed" name="color-selection" value="OrangeRed/LimeGreen/LightYellow/Navy">
+            <label for="OrangeRed/LimeGreen/LightYellow/Navy">OrangeRed/LimeGreen/LightYellow/Navy</label><br>
+            <input type="radio" id="Tomato" name="color-selection" value="Tomato/SpringGreen/Khaki/SteelBlue">
+            <label for="Tomato/SpringGreen/Khaki/SteelBlue">Tomato/SpringGreen/Khaki/SteelBlue</label>
+        </form>
+    </div>
+
+</div>
+
+<div class="history">
+    <h1>History</h1>
+    <p>The digital arcade game of Simon Says started simply as a children's game with a leader, being reffered to as Simon, gives commands for everyone else to follow. Each person must follow the commands, exactly as the leader does them, or the person is eliminated.</p>
+
+    <p>Later, this game was made into an electronic game where the player copies a sequence of colors that light up, by pressing the appropiate button colors. The objective is to try and achieve the largest sequence as possible, without messing up the pattern.</p>
+
+    <p>For more information about simon says, go to this <a href="https://en.wikipedia.org/wiki/Simon_Says" target="_blank">link</a>.</p>
+
+    <img id="simon-pic" height="200px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQShBX-h6z3PtbsnNwRplZnIAhSPb-41GRvV5b1uuWKB6Ye873LWRGZ2xQPHgVRI2AdPLzWHRs&usqp=CAc" alt="Simon Says Game">
+
+    <button class="back-home" onclick="showMenu()">Back to home</button>
+</div>
+
+<div class="simon-game">
+    <h2 id="score">Score</h2>
+    <p id="score-value">0</p>
+    <h2 id="highscore">High Score</h2>
+    <p id="highscore-value">0</p>
+    <p id="instructions"></p>
+
+    <div class="game-board">
+        <button id="green-button" onclick="whichButtonPressed('green')"></button>
+        <button id="red-button" onclick="whichButtonPressed('red')"></button>
+        <button id="yellow-button" onclick="whichButtonPressed('yellow')"></button>
+        <button id="blue-button" onclick="whichButtonPressed('blue')"></button>
+    </div>
+
+    <button id="reset-button" onclick="playGame(false)">Reset</button>
+    <button class="back-home" onclick="showMenu()">Back to home</button>
+    <!--
+      To-Do:
+      - create simon buttons: custom color and hover highlight - button has lower opacity in default, higher in hover, and highest once clicked
+      - create simon board, make different than traditional
+      - make score text
+      - game play
+      -->
+</div>
+
+</body>
+</html>
