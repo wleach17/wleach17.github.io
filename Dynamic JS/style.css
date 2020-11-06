@@ -3,6 +3,10 @@ body {
   background-size: cover;
 }
 
+button {
+  outline: none;
+}
+
 img#left-side {
   float: left;
 }

@@ -1,37 +1,68 @@
-// Bugs
-// Clicking game board prints undefined
 
+// Game States
+var gameState = "INSTR";
+var instrState = "BEGIN";
+
+// Variables
 var initialGameBoardWidth;
 var initialGameBoardHeight;
 var bodyWidth;
 var bodyHeight;
-// Game States
-  var gameState = "INSTR";
-  var instrState = "BEGIN";
-  var score;
-  var highscore = 0;
-  var gameSpeed;
-  var sequence = [];
-  var buttonPressed;
-  var whichButton;
-  var num;
-  var seqNum;
-  var clicked;
-  var delay;
-  var numPressed;
-  var instrPara;
-  var instructions = ["Starting the game, wait for colors to light up in...", "3", "2", "1", "0"];
+var score;
+var highscore = 0;
+var gameSpeed;
+var sequence = [];
+var buttonPressed;
+var whichButton;
+var num;
+var seqNum;
+var clicked;
+var delay;
+var numPressed;
+var instrPara;
+var demoMode;
+var wrongColor;
+var turnOn;
+// Number of correct buttons pressed in demo
+demoLimit = 5;
+// The number in sequence for demo
+var index;
+var instructions = ["Starting the game, wait for colors to light up in...", "3", "2", "1", "0"];
+var demoInstructions = ["1. Wait for buttons to light up", ""];
 
-function playGame(demoMode){
+// Simon Game and Demo
+function playGame(isDemo){
 
+  demoMode = isDemo;
   // Setup game
   hideMenu();
   if (demoMode==true) setTimeout(demoAnimation(), 3000);
   else setTimeout(playAnimation(), 3000);
   gameAnimation();
   gameBoard();
-  gameSpeed = document.getElementById("range1").value;
-  delay = 1500*(1/gameSpeed);
+
+  // If in play mode, set game speed
+  if (demoMode==false)
+  {
+    /*gameSpeed = document.getElementById("range1").value;
+    delay = 1500*(1/gameSpeed);*/
+    delay = 1500;
+    document.getElementById("score").style.visibility = "visible";
+    document.getElementById("highscore").style.visibility = "visible";
+    document.getElementById("score-value").style.visibility = "visible";
+    document.getElementById("highscore-value").style.visibility = "visible";
+  }
+  // If in demo mode, scores are hidden
+  else
+  {
+    delay = 1500;
+    document.getElementById("score").style.visibility = "hidden";
+    document.getElementById("highscore").style.visibility = "hidden";
+    document.getElementById("score-value").style.visibility = "hidden";
+    document.getElementById("highscore-value").style.visibility = "hidden";
+  }
+
+  // Instruction paragraph
   instrPara = document.getElementById("instructions");
   instrPara.innerHTML = "";
 
@@ -117,9 +148,104 @@ function stopClickTimer()
   }
 }
 
+function demoButtons()
+{
+  /*// if index hits demoLimit, choose wrong button to turn on
+  if (index == demoLimit)
+  {
+    // Choose wrong button
+    wrongColor = getWrongColor(sequence[index]);
+    // Turn on wrong button
+    getButtonFromColor(wrongColor).style.opacity = 4.0;
+    index++;
+  }
+  // if index is greater than demoLimit, turn off wrong button and stop timer
+  else if (index > demoLimit)
+  {
+    // Turn off wrong button
+    getButtonFromColor(wrongColor).style.opacity = 0.7;
+    // End demo
+    stopDemoTimer();
+  }*/
+
+  if (turnOn)
+  {
+    // if index is sequence's length, turn off last button
+    if (index >= sequence.length)
+    {
+      index = 0;
+      // Go back to display buttons
+      stopDemoTimer();
+    }
+    else if (index == 0)
+    {
+      console.log("Demo Button on" + sequence[index]);
+      // Display correct button pressed
+      getButtonFromColor(sequence[index]).style.opacity = 4.0;
+      index++;
+      turnOn = false;
+    }
+    else
+    {
+      // Display correct button pressed
+      console.log("Demo Button on" + sequence[index]);
+      getButtonFromColor(sequence[index]).style.opacity = 4.0;
+      index++;
+      turnOn = false;
+    }
+  }
+  else
+  {
+    // Turn off last button
+    --index;
+    console.log("Demo Button off" + sequence[index]);
+    getButtonFromColor(sequence[index]).style.opacity = 0.7;
+    ++index;
+    turnOn = true;
+  }
+}
+
+/*function getWrongColor(rightColor)
+{
+  var wrongColor;
+  if (rightColor=="green")
+  {
+    wrongColor = "red";
+  }
+  else if (rightColor=="red")
+  {
+    wrongColor = "blue";
+  }
+  else if (rightColor=="blue")
+  {
+    wrongColor = "yellow";
+  }
+  else
+  {
+    wrongColor = "green";
+  }
+}*/
+
 function setUserTimer()
 {
-  userTimer = window.setInterval(waitForButtons, 100);
+  if (demoMode==false) {
+    userTimer = window.setInterval(waitForButtons, 100);
+  }
+  else {
+    index = 0;
+    turnOn = true;
+    demoTimer = window.setInterval(demoButtons, delay);
+  }
+}
+
+function stopDemoTimer()
+{
+  if (demoTimer != null)
+  {
+    window.clearInterval(demoTimer);
+    // Back to display buttons
+    setTimer();
+  }
 }
 
 function stopUserTimer()
@@ -137,6 +263,7 @@ function setButtonOnTimer() {
   // light up button
   buttonOnTimer = window.setInterval(function() {
     getButtonFromColor(sequence[seqNum]).style.opacity = 4.0;
+    console.log("Button on" + sequence[seqNum]);
     stopButtonOnTimer();
   }, delay);
 }
@@ -151,17 +278,12 @@ function stopButtonOnTimer() {
 
 function setButtonOffTimer() {
   buttonOffTimer = window.setInterval(function() {
+      // Turn off button
       getButtonFromColor(sequence[seqNum]).style.opacity = 0.7;
+      console.log("Button off" + sequence[seqNum]);
+      // Next seqNum
       ++seqNum;
-      // Displayed all in sequence
-      if (seqNum==sequence.length)
-      {
-        stopButtonOffTimer();
-      }
-      else
-      {
-        stopButtonOffTimer();
-      }
+      stopButtonOffTimer();
     }, delay);
 }
 
@@ -173,7 +295,14 @@ function stopButtonOffTimer() {
     // Displayed all in sequence
     if (seqNum==sequence.length)
     {
-      instrPara.innerHTML = "Play back the sequence";
+      console.log("All buttons played");
+      if (demoMode==false) {
+        instrPara.innerHTML = "Play back the sequence";
+      }
+      else
+      {
+        instrPara.innerHTML = "2. User plays back the sequence";
+      }
       buttonPressed = false;
       numPressed = 0;
       setUserTimer();
@@ -190,20 +319,36 @@ function append()
 {
   var para = document.getElementById("instructions");
 
-  if (para.innerHTML=='0')
+  if (demoMode==false)
   {
-    para.style.visibility = "hidden";
-    stopTimer();
+    if (para.innerHTML=='0')
+    {
+      para.style.visibility = "hidden";
+      stopTimer();
+    }
+    else
+    {
+      para.innerHTML = instructions[num];
+      num++;
+    }
   }
   else
   {
-    para.innerHTML = instructions[num];
-    num++;
+    if (num==1)
+    {
+      num = 0;
+      stopTimer();
+    }
+    else
+    {
+      para.innerHTML = demoInstructions[num];
+      num++;
+    }
   }
 }
 
 function setTimer() {
-  timer = window.setInterval(append, delay);
+    timer = window.setInterval(append, delay);
 }
 
 function stopTimer() {
@@ -212,8 +357,11 @@ function stopTimer() {
   {
     window.clearInterval(timer);
     seqNum = 0;
-    instrPara.style.visibility = 'visible';
-    instrPara.innerHTML = "Displaying sequence...";
+    if (demoMode==false)
+    {
+      instrPara.style.visibility = 'visible';
+      instrPara.innerHTML = "Displaying sequence...";
+    }
     // add button to sequence
     sequence.push(mapNumToColor(getRandomNum(4)));
     setButtonOnTimer();

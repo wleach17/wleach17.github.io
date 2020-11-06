@@ -10,20 +10,15 @@
 </head>
 <body id="body" onload="headerAnimation()">
 
+<!-- Header and title images -->
 <div id="header">
     <h1><img id="left-side" height="50px" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/751540ab-b919-4075-b9ce-6567a67b2f7c/d2kcxsi-34b14e91-2ec7-4175-8cbc-584c3bfbb800.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzUxNTQwYWItYjkxOS00MDc1LWI5Y2UtNjU2N2E2N2IyZjdjXC9kMmtjeHNpLTM0YjE0ZTkxLTJlYzctNDE3NS04Y2JjLTU4NGMzYmZiYjgwMC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.Tm-mIp3XgmChDw3X_GR5FTxp9PPv7UeCouKooJFPQ2s" alt="gumball machine"><span id="S">S</span><span id="i">i</span><span id="m">m</span><span id="o">o</span><span id="n">n</span> <span id="S2">S</span><span id="a">a</span><span id="y">y</span><span id="s">s</span><img id="right-side" height="50px" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/751540ab-b919-4075-b9ce-6567a67b2f7c/d2kcxsi-34b14e91-2ec7-4175-8cbc-584c3bfbb800.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzUxNTQwYWItYjkxOS00MDc1LWI5Y2UtNjU2N2E2N2IyZjdjXC9kMmtjeHNpLTM0YjE0ZTkxLTJlYzctNDE3NS04Y2JjLTU4NGMzYmZiYjgwMC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.Tm-mIp3XgmChDw3X_GR5FTxp9PPv7UeCouKooJFPQ2s" alt="gumball machine"></h1>
     <h2>This game requires patience and mental fortitude</h2>
 
 </div>
 
+<!-- MENU -->
 <div class="menu-select">
-    <!--
-      To-Do:
-      - create buttons: play, customize, demo, rules, history
-      - style buttons: rounded, bright borders (neon), size, float
-      - when button is clicked, change visibility of buttons to hidden and display next event
-      - make button hover highlight
-     -->
     <div class="play-button">
         <button id="play-button" onclick="playGame(false)">Play</button>
     </div>
@@ -45,6 +40,7 @@
     </div>
 </div>
 
+<!-- RULES PAGE -->
 <div class="rules">
     <h1>Rules of the game:</h1>
     <ol>
@@ -56,6 +52,7 @@
     <button class="back-home" onclick="showMenu()">Back to home</button>
 </div>
 
+<!-- TITLES -->
 <div class="demo">
     <h1>Demo</h1>
 </div>
@@ -64,6 +61,7 @@
     <h1>Play</h1>
 </div>
 
+<!-- CUSTOMIZE PAGE -->
 <div class="customize">
     <h1>Custom Options</h1>
     <button class="back-home" onclick="showMenu()">Back to home</button>
@@ -126,15 +124,8 @@
         <button id="blue-button" onclick="whichButtonPressed('blue')"></button>
     </div>
 
-    <button id="reset-button" onclick="playGame(false)">Reset</button>
-    <button class="back-home" onclick="showMenu()">Back to home</button>
-    <!--
-      To-Do:
-      - create simon buttons: custom color and hover highlight - button has lower opacity in default, higher in hover, and highest once clicked
-      - create simon board, make different than traditional
-      - make score text
-      - game play
-      -->
+    <button id="reset-button" onclick="location.reload()">Reset</button>
+    <button class="back-home" onclick="location.reload()">Back to home</button>
 </div>
 
 </body>
