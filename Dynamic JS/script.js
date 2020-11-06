@@ -33,8 +33,8 @@ var demoInstructions = ["1. Wait for buttons to light up", ""];
 // Simon Game and Demo
 function playGame(isDemo){
 
-  demoMode = isDemo;
   // Setup game
+  demoMode = isDemo;
   hideMenu();
   if (demoMode==true) setTimeout(demoAnimation(), 3000);
   else setTimeout(playAnimation(), 3000);
@@ -76,7 +76,7 @@ function playGame(isDemo){
   setTimer();
 }
 
-
+// Wait for button press by user
 function waitForButtons()
 {
   if (buttonPressed)
@@ -86,6 +86,7 @@ function waitForButtons()
   }
 }
 
+// Turn off button pressed by user
 function turnOffButton()
 {
   // turn off button
@@ -93,11 +94,15 @@ function turnOffButton()
   stopClickTimer();
 }
 
+// Turn off clicked button
 function setClickTimer()
 {
   clickTimer = window.setInterval(turnOffButton, delay);
 }
 
+// If the sequence is complete, go to display mode
+// If the user clicked the wrong button, game over
+// Else keep waiting for buttons
 function stopClickTimer()
 {
   instrPara = document.getElementById("instructions");
@@ -132,6 +137,7 @@ function stopClickTimer()
     }
     else
     {
+      // Update score
       if (score>highscore)
       {
         highscore = score;
@@ -148,26 +154,9 @@ function stopClickTimer()
   }
 }
 
+// This acts as the button click for the demo mode
 function demoButtons()
 {
-  /*// if index hits demoLimit, choose wrong button to turn on
-  if (index == demoLimit)
-  {
-    // Choose wrong button
-    wrongColor = getWrongColor(sequence[index]);
-    // Turn on wrong button
-    getButtonFromColor(wrongColor).style.opacity = 4.0;
-    index++;
-  }
-  // if index is greater than demoLimit, turn off wrong button and stop timer
-  else if (index > demoLimit)
-  {
-    // Turn off wrong button
-    getButtonFromColor(wrongColor).style.opacity = 0.7;
-    // End demo
-    stopDemoTimer();
-  }*/
-
   if (turnOn)
   {
     // if index is sequence's length, turn off last button
@@ -205,27 +194,8 @@ function demoButtons()
   }
 }
 
-/*function getWrongColor(rightColor)
-{
-  var wrongColor;
-  if (rightColor=="green")
-  {
-    wrongColor = "red";
-  }
-  else if (rightColor=="red")
-  {
-    wrongColor = "blue";
-  }
-  else if (rightColor=="blue")
-  {
-    wrongColor = "yellow";
-  }
-  else
-  {
-    wrongColor = "green";
-  }
-}*/
-
+// If in demo mode, go to demo buttons
+// If in user mode, wait for button presses
 function setUserTimer()
 {
   if (demoMode==false) {
@@ -238,6 +208,7 @@ function setUserTimer()
   }
 }
 
+// Stop demo click mode and display more buttons
 function stopDemoTimer()
 {
   if (demoTimer != null)
@@ -248,6 +219,7 @@ function stopDemoTimer()
   }
 }
 
+// Turn on clicked button
 function stopUserTimer()
 {
  if (userTimer != null)
@@ -259,6 +231,7 @@ function stopUserTimer()
   }
 }
 
+// Turn on display button
 function setButtonOnTimer() {
   // light up button
   buttonOnTimer = window.setInterval(function() {
@@ -268,6 +241,7 @@ function setButtonOnTimer() {
   }, delay);
 }
 
+// Call turn off timer
 function stopButtonOnTimer() {
   if (buttonOnTimer != null)
   {
@@ -276,6 +250,7 @@ function stopButtonOnTimer() {
   }
 }
 
+// Turn off displayed button
 function setButtonOffTimer() {
   buttonOffTimer = window.setInterval(function() {
       // Turn off button
@@ -287,6 +262,8 @@ function setButtonOffTimer() {
     }, delay);
 }
 
+// If all buttons were displayed, go to user timer
+// If not, keep displaying sequence
 function stopButtonOffTimer() {
   instrPara = document.getElementById("instructions");
   if (buttonOffTimer != null)
@@ -315,6 +292,8 @@ function stopButtonOffTimer() {
   }
 }
 
+// Appended instructions below title
+// Cycles through array of instructions
 function append()
 {
   var para = document.getElementById("instructions");
@@ -347,10 +326,12 @@ function append()
   }
 }
 
+// Call instruction append timer
 function setTimer() {
     timer = window.setInterval(append, delay);
 }
 
+// Adds button to sequence and calls display timer
 function stopTimer() {
   instrPara = document.getElementById("instructions");
   if (timer != null)
@@ -368,6 +349,7 @@ function stopTimer() {
   }
 }
 
+// Gets the button element given a color
 function getButtonFromColor(color) {
   var nextButton;
   if (color=='green')
@@ -389,10 +371,12 @@ function getButtonFromColor(color) {
   return nextButton;
 }
 
+// Gets a random number between 0 - max-1
 function getRandomNum(max) {
   return Math.floor(Math.random()*Math.floor(max));
 }
 
+// Maps a number to a color
 function mapNumToColor(num) {
   var color;
   if (num==0) color = "green";
@@ -402,6 +386,8 @@ function mapNumToColor(num) {
   return color;
 }
 
+// When a button is pressed, this function is called
+// and sets the color of the button that was pressed
 function whichButtonPressed(button)
 {
   // one of the buttons was buttonPressed
@@ -409,24 +395,29 @@ function whichButtonPressed(button)
   whichButton = button;
 }
 
+// Rules menu
 function rules()
 {
   hideMenu();
   rulesAnimation();
 }
 
+// History menu
 function history()
 {
   hideMenu();
   historyAnimation();
 }
 
+
+// Customize menu
 function customize()
 {
   hideMenu();
   customizeAnimation();
 }
 
+// GameBoard menu
 function gameBoard()
 {
   // reset opacity of each button
@@ -524,16 +515,19 @@ function showMenu()
   $("#header").fadeIn("slow");
 }
 
+// Hide menu
 function hideMenu()
 {
   $(".menu-select").fadeOut("slow");
   $("#header").fadeOut("slow");
 }
 
+// Fade the game in
 function gameAnimation() {
   $(".simon-game").fadeIn("slow");
 }
 
+// Play game title animation
 function playAnimation() {
   $(".play").fadeIn("slow");
    // play header
@@ -542,6 +536,7 @@ function playAnimation() {
   document.querySelector(".play h1").style.color = "dodgerblue";
 }
 
+// Rules title animation
 function rulesAnimation() {
    $(".rules").fadeIn("slow");
    // rules header
@@ -550,6 +545,7 @@ function rulesAnimation() {
   document.querySelector(".rules h1").style.color = "springgreen";
 }
 
+// Demo title animation
 function demoAnimation() {
    $(".demo").fadeIn("slow");
    // demo header
@@ -558,6 +554,7 @@ function demoAnimation() {
   document.querySelector(".demo h1").style.color = "red";
 }
 
+// Customize title animation
 function customizeAnimation() {
    $(".customize").fadeIn("slow");
    // customize header
@@ -566,6 +563,7 @@ function customizeAnimation() {
   document.querySelector(".customize h1").style.color = "yellow";
 }
 
+// History title animation
 function historyAnimation() {
    $(".history").fadeIn("slow");
    // rules header
@@ -574,6 +572,7 @@ function historyAnimation() {
   document.querySelector(".history h1").style.color = "red";
 }
 
+// Header title animation
 function headerAnimation() {
   // S is green
   document.getElementById("S").animate([ {color: "white"},

@@ -1,20 +1,25 @@
+/* Background image covers whole background */
 body {
   background: url("https://cdn.hipwallpaper.com/i/30/95/NUH9Dk.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
+/* No outline on buttons */
 button {
   outline: none;
 }
 
+/* Title image on left */
 img#left-side {
   float: left;
 }
 
+/* Title image on right*/
 img#right-side {
   float: right;
 }
 
+/* Header aligned in center*/
 #header {
   text-align: center;
   padding: 10px;
@@ -22,6 +27,7 @@ img#right-side {
   z-index: 0;
 }
 
+/* Header font style*/
 #header > h1 {
   color:white;
   font-family: 'Times New Roman', Times, serif;
@@ -30,6 +36,7 @@ img#right-side {
   margin: 40px 100px 10px 100px;
 }
 
+/* Header font style*/
 #header > h2 {
   color: lightcyan;
   font-family: georgia;
@@ -38,16 +45,19 @@ img#right-side {
   margin: 0px 100px 0px 100px;
 }
 
+
 .history, .rules, .customize {
   height: 100%;
 }
 
+/*Menu div*/
 div.menu-select {
   height: 500px;
   position: relative;
   z-index: 0;
 }
 
+/*History picture*/
 #simon-pic {
   left: 50%;
   top: 56%;
@@ -58,6 +68,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*Play button position*/
 .play-button {
   top: 20%;
   left: 50%;
@@ -66,6 +77,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*Customize button position*/
 .customize-button {
   top: 50%;
   left: 30%;
@@ -74,6 +86,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*Demo button position*/
 .demo-button {
   top: 50%;
   left: 70%;
@@ -82,6 +95,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*Rules button position*/
 .rules-button {
   top: 80%;
   left: 30%;
@@ -90,6 +104,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*History button position*/
 .history-button {
   top: 80%;
   left: 70%;
@@ -98,6 +113,7 @@ div.menu-select {
   z-index: 0;
 }
 
+/*Back Home/Reset Button styling*/
 .back-home, #reset-button {
   top: 80%;
   left: 50%;
@@ -116,10 +132,12 @@ div.menu-select {
   height: 75px;
 }
 
+/*Customize/Back Home position*/
 .customize .back-home {
   top: 91%;
 }
 
+/*Button styling*/
 #play-button, #customize-button, #demo-button, #rules-button, #history-button {
   background-color: transparent;
   transition-duration: 0.5s;
@@ -136,11 +154,13 @@ div.menu-select {
   padding: 20px 20px;
 }
 
+/*Button Hover color change*/
 .back-home:hover, #play-button:hover, #customize-button:hover, #demo-button:hover,#rules-button:hover, #history-button:hover, #reset-button:hover {
   background-color: white;
   color: black;
 }
 
+/*Div positions*/
 .rules, .demo, .play, .customize, .history, .simon-game {
   left: 50%;
   transform: translateX(-50%);
@@ -151,6 +171,7 @@ div.menu-select {
   z-index: 1;
 }
 
+/*Header styling*/
 .rules h1, .demo h1, .play h1, .customize h1, .history h1, .simon-game h1 {
   color: white;
   text-align: center;
@@ -158,6 +179,7 @@ div.menu-select {
   margin: 40px 100px 10px 100px;
 }
 
+/*List style and margins*/
 .rules li {
   color: white;
   font-family: 'Times New Roman', Times, serif;
@@ -167,6 +189,7 @@ div.menu-select {
   margin-bottom: 20px;
 }
 
+/*Paragraph style and margins*/
 .history p {
   color: white;
   font-family: 'Times New Roman', Times, serif;
@@ -175,24 +198,27 @@ div.menu-select {
   margin-bottom: 10px;
 }
 
+/*Link color*/
 .history a {
   color:aqua;
 }
 
+/*Link hover color*/
 .history a:hover {
   color: yellow;
 }
 
+/*Radio styling*/
 .color-picker {
   display: block;
   position: relative;
-  /*left: 20%;*/
   margin-bottom: 20px;
   cursor: pointer;
   font-size: 100%;
   color: white;
 }
 
+/*Range slider styling*/
 .slider {
   width: 70%;
   height: 20px;
@@ -202,26 +228,31 @@ div.menu-select {
   color: white;
 }
 
+/*Range slider hover styling*/
 .slider:hover {
   opacity: 1;
 }
 
+/*Customize option styling*/
 .play-speed, .board-size, .color-picker {
   width: 100%;
   color: white;
   margin-left: 20%;
 }
 
+/*Game div full size*/
 .simon-game {
   height: 100%;
   width: 100%;
 }
 
+/*Game paragraph styling*/
 .simon-game p {
   color: white;
   font-family: 'Times New Roman', Times, serif;
 }
 
+/*SCORE AND INSTRUCTION STYLING*/
 .simon-game #score, .simon-game #highscore, .simon-game #score-value, .simon-game #highscore-value, .simon-game #instructions {
   position: absolute;
   z-index: 0;
@@ -261,6 +292,7 @@ div.menu-select {
   visibility: visible;
 }
 
+/*Game Board styling*/
 .game-board {
   /*width: 27.63%;
   height: 45.05%;*/
@@ -276,6 +308,7 @@ div.menu-select {
   border-radius: 5%;
 }
 
+/*Game button styling*/
 #red-button, #green-button, #yellow-button, #blue-button {
   border: none;
   border-radius: 10px;
