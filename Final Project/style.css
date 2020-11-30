@@ -1,0 +1,227 @@
+/*HEADER*/
+.header {
+  text-align: center;
+  padding: 10px;
+}
+
+.header > h1 {
+  color: brown;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 200%;
+  font-style: bold;
+  font: outline;
+  margin: 0px 100px 0px 100px;
+}
+
+.header > h2 {
+  color: grey;
+  font: outline;
+  font-size: 85%;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0px 100px 0px 100px;
+}
+
+
+/*NAVBAR AND DROPDOWN*/
+.navbar {
+  overflow: hidden;
+  background-color: darkgoldenrod;
+}
+
+.navbar a {
+  float: left;
+  color: gold;
+  text-align: center;
+  font-size: 16px;
+  padding: 14px 16px;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown #dropdownButton {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background-color: darkgoldenrod;
+  color: gold;
+  padding: 14px 16px;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover {
+  background-color: brown;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: darkgoldenrod;
+  z-index: 1;
+}
+
+.dropdownContent a {
+  float: none;
+  color: gold;
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+}
+
+.dropdownContent a:hover {
+  background-color: brown;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+/*HOME PAGE / BASIC INFO PAGE*/
+.homePage {
+  visibility: visible;
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+}
+
+.infoPage {
+  visibility: visible;
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+}
+
+.homePage h2, .infoPage h2, .allCardsPage h2, .cardTitle h2 {
+  color: brown;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 10px 100px 10px 100px;
+}
+
+.homePage p, .infoPage p {
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: left;
+}
+
+/*ALL CARDS PAGE*/
+.allCardsPage {
+  visibility: visible;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  width: 100%;
+}
+
+.allCardsPage h2 {
+  width: 70%;
+}
+
+.allCardsPage #listContainer, .cardPage .cardLists {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.allCardsPage li, .cardPage li {
+  text-align: left;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+}
+
+.allCardsPage a:hover, .cardLists a:hover {
+  text-decoration: underline;
+  color: turquoise;
+}
+
+.first, .second, .third, .fourth, #first, #second, #third, #fourth {
+  float: left;
+  width: 20%;
+}
+
+.fifth, #fifth {
+  float: right;
+  width: 20%;
+}
+
+/*CONTAINER*/
+.container {
+  height: 700px;
+  width: 100%;
+}
+
+
+/*CARD PAGE*/
+.cardPage {
+  visibility: visible;
+  width: 100%;
+}
+
+.cardPageHeader {
+  color: brown;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cardPageFields input {
+  position: absolute;
+  left: 50%;
+  top: 33%;
+  transform: translateX(-50%);
+}
+
+.cardPageButtons button {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+}
+
+.cardImage {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  transform: translateX(-50%);
+}
+
+.makeGolden {
+  position: absolute;
+  left: 50%;
+  top: 85%;
+  transform: translateX(-50%);
+}
+
+.cardDescription {
+  position: absolute;
+  width: 50%;
+  height: 500px;
+  left: 50%;
+  top: 90%;
+  transform: translateX(-50%);
+}
+
+.cardDescription p {
+  height: 100%;
+}
+
+.cardTitle {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+}
+
+.cardLists {
+  position: absolute;
+  top: 55%;
+}

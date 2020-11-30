@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Hearthstone</title>
+    <!-- Icon used in navbar dropdown -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="path/to/chartjs/dist/Chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body id="body" onload="symbolLoad()">
+
+<!-- Website about hearthstone! -->
+
+<!-- HEADER -->
+<div class="header">
+    <h1>Hearthst<img src="https://w7.pngwing.com/pngs/915/909/png-transparent-gold-star-emblem-hearthstone-overwatch-league-of-legends-starcraft-ii-wings-of-liberty-dota-2-lottery-game-video-game-blizzard-entertainment.png" alt="logo" width="25px" height="25px">ne Guide</h1>
+    <h2>Heroes of Warcraft</h2>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <a onclick="showHome()">Home</a>
+    <a onclick="getInfo()">Basic Info</a>
+    <a onclick="getAllCards()">All Cards</a>
+    <div class="dropdown">
+        <button id="dropdownButton">Search By <i class="fa fa-caret-down"></i></button>
+        <div class="dropdownContent">
+            <a onclick="showCardName()">Card Name</a>
+            <a onclick="showCardClass()">Card Class</a>
+            <a onclick="showCardSet()">Card Set</a>
+            <a onclick="showCardRarity()">Card Rarity</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- HOME PAGE -->
+    <div class="homePage">
+        <h2>Welcome to the Hearthstone Guide!</h2>
+        <p>If you have come to learn about how the game is played, to check out all of the latest cards, and to use our free searching database based on your favorite card sets, classes, rarities, and more, you are in luck!</p>
+    </div>
+
+    <!-- BASIC INFO PAGE -->
+    <div class="infoPage">
+        <h2>Basic Hearthstone Information</h2>
+        <p id="basicInfo">Basic info right now, need to put data in here!<p>
+    </div>
+
+    <!-- ALL CARDS PAGE -->
+    <div class="allCardsPage">
+        <h2>List of all the cards in Hearthstone</h2>
+        <div id="listContainer">
+            <div id="first">
+                <ul id="firstList">
+                </ul>
+            </div>
+            <div id="second">
+                <ul id="secondList">
+                </ul>
+            </div>
+            <div id="third">
+                <ul id="thirdList">
+                </ul>
+            </div>
+            <div id="fourth">
+                <ul id="fourthList">
+                </ul>
+            </div>
+            <div id="fifth">
+                <ul id="fifthList">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD PAGE -->
+    <div class="cardPage">
+
+        <div class="cardPageHeader">
+            <h2>Search for card by <span id="whichSearch"></span></h2>
+        </div>
+
+        <div class="cardPageFields">
+            <input type="text" id="singleCardName" name="Card Name">
+
+            <input type="text" id="className" name="Class Name">
+
+            <input type="text" id="setName" name="Set Name">
+
+            <input type="text" id="rarityName" name="Rarity Name">
+            <div>
+
+                <!--<div class="cardPageLabels">
+                  <label for="singleCardName">Card Name</label>
+
+                  <label for="className">Class Name</label>
+
+                  <label for="setName">Set Name</label>
+
+                  <label for="rarityName">Rarity Name</label>
+                </div>-->
+
+                <div class="cardPageButtons">
+                    <button id="cardNameButton" onclick="getSingleCard()">Get Card</button>
+
+                    <button id="classNameButton" onclick="getClassCards()">Get Class Cards</button>
+
+                    <button id="setNameButton" onclick="getSetCards()">Get Set Cards</button>
+
+                    <button id="rarityNameButton" onclick="getRarityCards()">Get Rarity Cards</button>
+                </div>
+
+                <div class="cardTitle">
+                    <h2 id="cardTitle">Title</h2>
+                </div>
+
+                <div class="cardImage">
+                    <img id="cardImage" src="https://w7.pngwing.com/pngs/915/909/png-transparent-gold-star-emblem-hearthstone-overwatch-league-of-legends-starcraft-ii-wings-of-liberty-dota-2-lottery-game-video-game-blizzard-entertainment.png" alt="Card Image" height="220px" width="150px">
+                </div>
+
+                <div class="makeGolden">
+                    <button id="makeGoldenButton" onclick="makeImgGolden()">Make GOLDEN</button>
+                </div>
+
+                <div class="cardDescription">
+                    <p id="singleCardDescription"></p>
+                </div>
+
+                <div class="cardLists">
+                    <div class="first">
+                        <ul class="firstList">
+                        </ul>
+                    </div>
+                    <div class="second">
+                        <ul class="secondList">
+                        </ul>
+                    </div>
+                    <div class="third">
+                        <ul class="thirdList">
+                        </ul>
+                    </div>
+                    <div class="fourth">
+                        <ul class="fourthList">
+                        </ul>
+                    </div>
+                    <div class="fifth">
+                        <ul class="fifthList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
