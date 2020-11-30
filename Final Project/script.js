@@ -65,6 +65,11 @@ var allCardsGot = false;
 // Basic Hearthstone Game Info
 function getInfo()
 {
+  // Hide home, all cards, and card page
+  $(".homePage").fadeOut("slow");
+  $(".allCardsPage").fadeOut("slow");
+  $(".cardPage").fadeOut("slow");
+
   // If we already got the info, show it
   if (infoGot==true)
   {
@@ -72,6 +77,8 @@ function getInfo()
   }
   else
   {
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
     const data = null;
 
     const xhr = new XMLHttpRequest();
@@ -118,6 +125,8 @@ function getInfo()
         // Locales info
         //locales = information[9];
 
+        // Stop loader
+        document.getElementsByClassName("loader")[0].style.visibility = "hidden";
         showInfo();
       }
     });
@@ -133,6 +142,11 @@ function getInfo()
 // Get All cards (name), stored in all cards array
 function getAllCards()
 {
+  // Hide home page, basic info, and card page
+  $(".homePage").fadeOut("slow");
+  $(".infoPage").fadeOut("slow");
+  $(".cardPage").fadeOut("slow");
+
   // If we already got all cards, show them
   if (allCardsGot==true)
   {
@@ -140,6 +154,9 @@ function getAllCards()
   }
   else
   {
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
+
     // Reset all cards array
     allCards = [];
 
@@ -165,6 +182,8 @@ function getAllCards()
             }
           }
         }
+        // Stop loader
+        document.getElementsByClassName("loader")[0].style.visibility = "hidden";
         showAllCards();
       }
     });
@@ -201,7 +220,10 @@ function getSingleCard(nameOfCard)
   }
   else
   {
-
+    // Hide image
+    document.getElementById("cardImage").style.visibility = "hidden";
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
     const data = null;
 
     const xhr = new XMLHttpRequest();
@@ -422,6 +444,10 @@ function getSingleCard(nameOfCard)
             newArr[i] = Object.values(mechanics[i]);
             mechanics[i] = newArr[i][0];
           }
+          // Show image
+          document.getElementById("cardImage").style.visibility = "visible";
+          // Stop loader
+          document.getElementsByClassName("loader")[0].style.visibility = "hidden";
           updateCardInfo();
         }
         else
@@ -457,6 +483,8 @@ function getClassCards()
   }
   else
   {
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
     const data = null;
 
     const xhr = new XMLHttpRequest();
@@ -478,6 +506,8 @@ function getClassCards()
             }
           }
           classCards = removeDuplicates(classCards);
+          // Stop loader
+          document.getElementsByClassName("loader")[0].style.visibility = "hidden";
           updateClassInfo();
         }
         else
@@ -513,6 +543,8 @@ function getSetCards()
   }
   else
   {
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
     const data = null;
 
     const xhr = new XMLHttpRequest();
@@ -534,6 +566,8 @@ function getSetCards()
             }
           }
           setCards = removeDuplicates(setCards);
+          // Stop loader
+          document.getElementsByClassName("loader")[0].style.visibility = "hidden";
           updateSetInfo();
         }
         else
@@ -569,6 +603,8 @@ function getRarityCards()
   }
   else
   {
+    // Start loader
+    document.getElementsByClassName("loader")[0].style.visibility = "visible";
     const data = null;
 
     const xhr = new XMLHttpRequest();
@@ -591,6 +627,8 @@ function getRarityCards()
             }
           }
           rarityCards = removeDuplicates(rarityCards);
+          // Stop loader
+          document.getElementsByClassName("loader")[0].style.visibility = "hidden";
           updateRarityInfo();
         }
         else
@@ -620,12 +658,53 @@ function removeDuplicates(array)
 
 /*DISPLAY FUNCTIONS*/
 // Onload of page, hearthstone symbol
-function symbolLoad()
+function setLoadTimer()
 {
-  // Display symbol
-  // Pulse light for x time
-  // call display page and hide symbol
-  showHome();
+  // Display background
+  // Start loader
+    document.getElementsByClassName("smallLoader")[0].style.visibility = "visible";
+  // After 4 seconds, change background and move to back
+  loadTimer = window.setInterval(function() {
+    // Change to plain background
+    //document.body.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMFULURkraHVxc0bwNlDD4UzrpL7lA8plzSw&usqp=CAU')";
+
+    document.body.style.background = "url('https://wallpaperaccess.com/full/552581.jpg') no-repeat center center fixed";
+    // Stop loader
+    document.getElementsByClassName("smallLoader")[0].style.visibility = "hidden";
+    document.body.style.backgroundSize = "cover";
+
+    //https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3rBmvAitwmX6szyUPgqpWjqKb9IkrqGvHwQ&usqp=CAU
+    // No background
+    //document.body.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3rBmvAitwmX6szyUPgqpWjqKb9IkrqGvHwQ&usqp=CAU')";
+
+    // Turn visibility on for header, navbar, home page
+    document.getElementsByClassName("header")[0].style.visibility = "visible";
+    document.getElementsByClassName("navbar")[0].style.visibility = "visible";
+    document.getElementsByClassName("homePage")[0].style.visibility = "visible";
+    /*
+    // Show header
+    $(".header").fadeIn("slow");
+
+    // Show navbar
+    $(".navbar").fadeIn("slow");
+
+    // Show home page
+    $(".homePage").fadeIn("slow");
+    */
+
+    // Stop load timer
+    stopLoadTimer();
+  }, 4000);
+}
+
+// Loads the rest of the page
+function stopLoadTimer()
+{
+  if (loadTimer != null)
+  {
+    window.clearInterval(loadTimer);
+
+  }
 }
 
 // Display Home page
@@ -643,11 +722,8 @@ function showHome()
 // Display basic info page
 function showInfo()
 {
-
-  // Hide home, all cards, and card page
-  $(".homePage").fadeOut("slow");
-  $(".allCardsPage").fadeOut("slow");
-  $(".cardPage").fadeOut("slow");
+  // Info page is visible
+  document.getElementsByClassName("infoPage")[0].style.visibility = "visible";
 
   // Show basic info
   $(".infoPage").fadeIn("slow");
@@ -671,13 +747,8 @@ function showInfo()
 // Display all cards page
 function showAllCards()
 {
-  // Hide home page, basic info, and card page
-  $(".homePage").fadeOut("slow");
-  $(".infoPage").fadeOut("slow");
-  $(".cardPage").fadeOut("slow");
-
-  // Show all cards page
-  $(".allCardsPage").fadeIn("slow");
+  // All cards page is visible
+  document.getElementsByClassName("allCardsPage")[0].style.visibility = "visible";
 
   var numLists = 5;
   var counter = 0;
@@ -720,6 +791,9 @@ function showAllCards()
     counter++;
   }
 
+  // Show all cards page
+  $(".allCardsPage").fadeIn("slow");
+
   allCardsGot = true;
 }
 
@@ -750,6 +824,9 @@ function showCardName()
   document.getElementById("classNameButton").style.visibility = "hidden";
   document.getElementById("setNameButton").style.visibility = "hidden";
   document.getElementById("rarityNameButton").style.visibility = "hidden";
+
+  // Show card page header
+  document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
 
   // Hide card lists
   document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
@@ -800,6 +877,9 @@ function showCardClass()
   document.getElementById("setNameButton").style.visibility = "hidden";
   document.getElementById("rarityNameButton").style.visibility = "hidden";
 
+  // Show card page header
+  document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
+
   // Show class button
   document.getElementById("classNameButton").style.visibility = "visible";
 
@@ -835,6 +915,9 @@ function showCardSet()
 
   // Show set input field
   document.getElementById("setName").style.visibility = "visible";
+
+  // Show card page header
+  document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
 
   // Hide class, name, rarity buttons
   document.getElementById("classNameButton").style.visibility = "hidden";
@@ -876,6 +959,9 @@ function showCardRarity()
 
   // Show rarity input field
   document.getElementById("rarityName").style.visibility = "visible";
+
+  // Show card page header
+  document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
 
   // Hide class, set, name buttons
   document.getElementById("classNameButton").style.visibility = "hidden";
