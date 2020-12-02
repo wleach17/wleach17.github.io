@@ -238,9 +238,30 @@ body {
 
 .cardPageButtons button {
   position: absolute;
-  left: 50%;
+  left: 40%;
   top: 38%;
   transform: translateX(-50%);
+}
+
+#cardNameButton {
+  left: 50%;
+}
+
+.chartButtons button {
+  position: absolute;
+  left: 60%;
+  top: 38%;
+  transform: translateX(-50%);
+}
+
+#typeChartButton {
+  left: 25%;
+}
+#factionChartButton {
+  left: 50%;
+}
+#raceChartButton {
+  left: 75%;
 }
 
 .cardImage {
@@ -287,6 +308,18 @@ body {
   top: 55%;
 }
 
+/*CHARTS*/
+.charts {
+  width: 80%;
+}
+
+#classChart, #setChart, #rarityChart, #typeChart, #factionChart, #raceChart {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /*CARD PAGE FIELDS INPUT*/
 .cardPageFields input {
   outline: none;
@@ -296,7 +329,7 @@ body {
 }
 
 /*CARD PAGE BUTTONS*/
-.cardPageButtons button {
+.cardPageButtons button, .chartButtons button {
   background-color: transparent;
   transition-duration: 0.5s;
   border: 5px solid lightgoldenrodyellow;
@@ -310,7 +343,7 @@ body {
   outline: none;
 }
 
-.cardPageButtons button:hover {
+.cardPageButtons button:hover, .chartButtons button:hover {
   background-color: white;
   color: black;
 }

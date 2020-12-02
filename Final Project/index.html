@@ -9,7 +9,7 @@
     <!--CSS Stylesheet -->
     <link href="style.css" rel="stylesheet" type="text/css" />
     <!-- Chart.js Library-->
-    <script src="path/to/chartjs/dist/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <!-- Ajax library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- script.js -->
@@ -39,6 +39,8 @@
             <a onclick="showCardRarity()">Card Rarity</a>
         </div>
     </div>
+    <a onclick="comingSoon()">Other Charts</a>
+    <!-- onclick="showChartOptions()" -->
 </div>
 
 <div class="container">
@@ -135,7 +137,7 @@
     <div class="cardPage">
 
         <div class="cardPageHeader">
-            <h2>Search for card by <span id="whichSearch"></span></h2>
+            <h2 id="cardHeader">Search for card by <span id="whichSearch"></span></h2>
         </div>
 
         <div class="cardPageFields">
@@ -166,6 +168,19 @@
                     <button id="setNameButton" onclick="getSetCards()">Get Set Cards</button>
 
                     <button id="rarityNameButton" onclick="getRarityCards()">Get Rarity Cards</button>
+                </div>
+                <div class="chartButtons">
+                    <button id="classChartButton" onclick="classChartCall()">Make Class Chart</button>
+
+                    <button id="setChartButton" onclick="setChartCall()">Make Set Chart</button>
+
+                    <button id="rarityChartButton" onclick="rarityChartCall()">Make Rarity Chart</button>
+
+                    <button id="typeChartButton" onclick="typeChartCall()">Make Type Chart</button>
+
+                    <button id="factionChartButton" onclick="factionChartCall()">Make Faction Chart</button>
+
+                    <button id="raceChartButton" onclick="raceChartCall()">Make Race Chart</button>
                 </div>
 
                 <div class="cardTitle">
@@ -205,6 +220,15 @@
                         <ul class="fifthList">
                         </ul>
                     </div>
+                </div>
+
+                <div class="charts">
+                    <canvas id="classChart" width="400px" height="400px"></canvas>
+                    <canvas id="setChart" width="400px" height="400px"></canvas>
+                    <canvas id="rarityChart" width="400px" height="400px"></canvas>
+                    <canvas id="typeChart" width="400px" height="400px"></canvas>
+                    <canvas id="factionChart" width="400px" height="400px"></canvas>
+                    <canvas id="raceChart" width="400px" height="400px"></canvas>
                 </div>
             </div>
         </div>

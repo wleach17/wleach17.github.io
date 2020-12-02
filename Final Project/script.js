@@ -56,11 +56,114 @@ var setCards = [];
 /*RARITY CLASS ARRAY*/
 var rarityCards = [];
 
+/*CHART CLASS COUNTERS*/
+var deathKnight = 0;
+var druid = 0;
+var hunter = 0;
+var mage = 0;
+var paladin = 0;
+var priest = 0;
+var rogue = 0;
+var shaman = 0;
+var warlock = 0;
+var warrior = 0;
+var dream = 0;
+var neutral = 0;
+var demonHunter = 0;
+
+/*CHART SET COUNTERS*/
+var basic = 0;
+var classic = 0;
+var hallOfFame = 0;
+var missions = 0;
+var demo = 0;
+var system = 0;
+var slush = 0;
+var promo = 0;
+var naxxramas = 0;
+var goblins = 0;
+var blackrock = 0;
+var grand = 0;
+var credits = 0;
+var hero = 0;
+var tavernBrawl = 0;
+var league = 0;
+var whispers = 0;
+var karazhan = 0;
+var gadgetzan = 0;
+var ungoro = 0;
+var knights = 0;
+var kobolds = 0;
+var witchwood = 0;
+var boomsday = 0;
+var rastakhan = 0;
+var shadows = 0;
+var tavernsOfTime = 0;
+var saviors = 0;
+var dragons = 0;
+var galakrond = 0;
+var outland = 0;
+var wildEvent = 0;
+var scholomance = 0;
+var battlegrounds = 0;
+var initiate = 0;
+var darkmoon = 0;
+
+/*CHART RARITY COUNTERS*/
+var common = 0;
+var free = 0;
+var rare = 0;
+var epic = 0;
+var legendary = 0;
+
+/*CHART TYPES COUNTERS*/
+var hero = 0;
+var minion = 0;
+var spell = 0;
+var enchantment = 0;
+var weapon = 0;
+var heroPower = 0;
+
+/*CHART RACES COUNTERS*/
+var orc = 0;
+var murloc = 0;
+var demon = 0;
+var mech = 0;
+var elemental = 0;
+var beast = 0;
+var totem = 0;
+var pirate = 0;
+var dragon = 0;
+var all = 0;
+
+/*CHART FACTIONS COUNTER*/
+var horde = 0;
+var alliance = 0;
+var neutralFaction = 0;
+
 /*BOOLEANS*/
 // Once the basic info has been retrieved, don't re get it
 var infoGot = false;
 // Once all cards has been retrieved, don't re get it
 var allCardsGot = false;
+// Currently making any CHART
+var makingChart = false;
+// Currently making CLASS CHART
+var makingClassChart = false;
+// Currently making SET CHART
+var makingSetChart = false;
+// Currently making RARITY CHART
+var makingRarityChart = false;
+// Currently making TYPE CHART
+var makingTypeChart = false;
+// Currently making RACE CHART
+var makingRaceChart = false;
+// Currently making FACTION CHART
+var makingFactionChart = false;
+
+/*TESTING*/
+var storedCards = 0;
+var totalCards = 0;
 
 // Basic Hearthstone Game Info
 function getInfo()
@@ -100,27 +203,35 @@ function getInfo()
 
         // Class info
         classes = information[1];
+        classes = removeDuplicates(classes);
 
         // Sets info
         sets = information[2];
+        sets = removeDuplicates(sets);
 
         // Standard info
         standard = information[3];
+        standard = removeDuplicates(standard);
 
         // Wild info
         wild = information[4];
+        wild = removeDuplicates(wild);
 
         // Types info
         types = information[5];
+        types = removeDuplicates(types);
 
         // Factions info
         factions = information[6];
+        factions = removeDuplicates(factions);
 
         // Qualities info
         qualities = information[7];
+        qualities = removeDuplicates(qualities);
 
         // Races info
         races = information[8];
+        races = removeDuplicates(races);
 
         // Locales info
         //locales = information[9];
@@ -148,7 +259,7 @@ function getAllCards()
   $(".cardPage").fadeOut("slow");
 
   // If we already got all cards, show them
-  if (allCardsGot==true)
+  if ((allCardsGot==true)&&(makingChart==false))
   {
     showAllCards();
   }
@@ -168,6 +279,7 @@ function getAllCards()
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === this.DONE) {
         var response = JSON.parse(this.responseText);
+        console.log("get all cards");
 
         collections = Object.values(response);
         for (var i = 0; i < collections.length; i++)
@@ -175,16 +287,331 @@ function getAllCards()
           for (var j = 0; j < collections[i].length; j++)
           {
             var card = Object.values(collections[i][j]);
+            totalCards++;
+
             // Only store cards with 12 attributes or more
             if (card.length > 11)
             {
+              // Position of class in array
+              var classPos2 = Object.keys(collections[i][j]).indexOf("playerClass");
+              // Position of set in array
+              var setPos2 = Object.keys(collections[i][j]).indexOf("cardSet");
+              // Position of rarity in array
+              var rarityPos2 = Object.keys(collections[i][j]).indexOf("rarity");
+              // Position of type in array
+              /*var typePos2 = Object.key(collections[i][j]).indexOf("type");
+              console.log("reads type");
+              // Position of faction in array
+              var factionPos2 = Object.key(collections[i][j]).indexOf("faction");
+              console.log("reads faction");
+              // Position of race in array
+              var racePos2 = Object.key(collections[i][j]).indexOf("race");console.log("reads race");*/
+
+              storedCards++;
+              // Card name
               allCards.push(card[2]);
+
+              if (makingClassChart)
+              {
+                var whichClass = card[classPos2];
+
+                switch(whichClass) {
+                  case "Death Knight":
+                    deathKnight++;
+                  break;
+                  case "Druid":
+                    druid++;
+                  break;
+                  case "Hunter":
+                    hunter++;
+                  break;
+                  case "Mage":
+                    mage++;
+                  break;
+                  case "Paladin":
+                    paladin++;
+                  break;
+                  case "Priest":
+                    priest++;
+                  break;
+                  case "Rogue":
+                    rogue++;
+                  break;
+                  case "Shaman":
+                    shaman++;
+                  break;
+                  case "Warlock":
+                    warlock++;
+                  break;
+                  case "Warrior":
+                    warrior++;
+                  break;
+                  case "Dream":
+                    dream++;
+                  break;
+                  case "Neutral":
+                    neutral++;
+                  break;
+                  case "Demon Hunter":
+                    demonHunter++;
+                  break;
+                }
+              }
+              else if (makingSetChart)
+              {
+                var whichSet = card[setPos2];
+
+                switch(whichSet) {
+                  case "Basic":
+                    basic++;
+                  break;
+                  case "Classic":
+                    classic++;
+                  break;
+                  case "Hall of Fame":
+                    hallOfFame++;
+                  break;
+                  case "Missions":
+                    missions++;
+                  break;
+                  case "Demo":
+                    demo++;
+                  break;
+                  case "System":
+                    system++;
+                  break;
+                  case "Slush":
+                    slush++;
+                  break;
+                  case "Promo":
+                    promo++;
+                  break;
+                  case "Naxxramas":
+                    naxxramas++;
+                  break;
+                  case "Goblins vs Gnomes":
+                    goblins++;
+                  break;
+                  case "Blackrock Mountain":
+                    blackrock++;
+                  break;
+                  case "The Grand Tournament":
+                    grand++;
+                  break;
+                  case "Credits":
+                    credits++;
+                  break;
+                  case "Hero Skins":
+                    hero++;
+                  break;
+                  case "Tavern Brawl":
+                    tavernBrawl++;
+                  break;
+                  case "The League of Explorers":
+                    league++;
+                  break;
+                  case "Whispers of the Old Gods":
+                    whispers++;
+                  break;
+                  case "One Night in Karazhan":
+                    karazhan++;
+                  break;
+                  case "Mean Streets of Gadgetzan":
+                    gadgetzan++;
+                  break;
+                  case "Journey to Un'Goro":
+                    ungoro++;
+                  break;
+                  case "Knights of the Frozen Throne":
+                    knights++;
+                  break;
+                  case "Kobolds & Catacombs":
+                    kobolds++;
+                  break;
+                  case "The Witchwood":
+                    witchwood++;
+                  break;
+                  case "The Boomsday Project":
+                    boomsday++;
+                  break;
+                  case "Rastakhan's Rumble":
+                    rastakhan++;
+                  break;
+                  case "Rise of Shadows":
+                    shadows++;
+                  break;
+                  case "Taverns of Time":
+                    tavernsOfTime++;
+                  break;
+                  case "Saviors of Uldum":
+                    saviors++;
+                  break;
+                  case "Descent of Dragons":
+                    dragons++;
+                  break;
+                  case "Galakrond's Awakening":
+                    galakrond++;
+                  break;
+                  case "Ashes of Outland":
+                    outland++;
+                  break;
+                  case "Wild Event":
+                    wildEvent++;
+                  break;
+                  case "Scholomance Academy":
+                    scholomance++;
+                  break;
+                  case "Battlegrounds":
+                    battlegrounds++;
+                  break;
+                  case "Demon Hunter Initiate":
+                    initiate++;
+                  break;
+                  case "Darkmoon Faire":
+                    darkmoon++;
+                  break;
+                }
+              }
+              else if (makingRarityChart)
+              {
+                var whichRarity = card[rarityPos2];
+
+                switch(whichRarity) {
+                  case "Common":
+                    common++;
+                  break;
+                  case "Free":
+                    free++;
+                  break;
+                  case "Rare":
+                    rare++;
+                  break;
+                  case "Epic":
+                    epic++;
+                  break;
+                  case "Legendary":
+                    legendary++;
+                  break;
+                }
+              }
+              /*
+              else if (makingTypesChart)
+              {
+                var whichType = card[typePos2];
+
+                switch(whichType) {
+                  case "Hero":
+                    hero++;
+                  break;
+                  case "Minion":
+                    minion++;
+                  break;
+                  case "Spell":
+                    spell++;
+                  break;
+                  case "Enchantment":
+                    enchantment++;
+                  break;
+                  case "Weapon":
+                    weapon++;
+                  break;
+                  case "Hero Power":
+                    heroPower++;
+                  break;
+                }
+              }
+              else if (makingFactionChart)
+              {
+                var whichFaction = card[factionPos2];
+
+                switch(whichFaction) {
+                  case "Horde":
+                    horde++;
+                  break;
+                  case "Alliance":
+                    alliance++;
+                  break;
+                  case "Neutral":
+                    neutralFaction++;
+                  break;
+                }
+              }
+              else if (makingRaceChart)
+              {
+                var whichRace = card[racePos2];
+
+                switch(whichRace) {
+                  case "Orc":
+                    orc++;
+                  break;
+                  case "Murloc":
+                    murloc++;
+                  break;
+                  case "Demon":
+                    demon++;
+                  break;
+                  case "Mech":
+                    mech++;
+                  break;
+                  case "Elemental":
+                    elemental++;
+                  break;
+                  case "Beast":
+                    beast++;
+                  break;
+                  case "Totem":
+                    totem++;
+                  break;
+                  case "Pirate":
+                    pirate++;
+                  break;
+                  case "Dragon":
+                    dragon++;
+                  break;
+                  case "All":
+                    all++;
+                  break;
+                }
+              }
+              */
             }
           }
+          console.log("under for 1");
         }
+        console.log("under for 2");
+
         // Stop loader
         document.getElementsByClassName("loader")[0].style.visibility = "hidden";
-        showAllCards();
+
+        if (!makingChart)
+        {
+          console.log("show all cards");
+          showAllCards();
+        }
+        else if(makingClassChart)
+        {
+          classChart();
+        }
+        else if (makingSetChart)
+        {
+          setChart();
+        }
+        else if (makingRarityChart)
+        {
+          rarityChart();
+        }
+        else if (makingTypeChart)
+        {
+          typeChart();
+        }
+        else if (makingFactionChart)
+        {
+          factionChart();
+        }
+        else if (makingRaceChart)
+        {
+          raceChart();
+        }
       }
     });
 
@@ -812,13 +1239,29 @@ function showCardName()
   // Change span title to name
   document.getElementById("whichSearch").innerHTML = "Name";
 
+  // Hide other chart buttons
+  document.getElementById("classChartButton").style.visibility = "hidden";
+  document.getElementById("setChartButton").style.visibility = "hidden";
+  document.getElementById("rarityChartButton").style.visibility = "hidden";
+
+  // Hide charts
+  hideCharts();
+
   // Hide class, set, rarity input fields
   document.getElementById("className").style.visibility = "hidden";
   document.getElementById("setName").style.visibility = "hidden";
   document.getElementById("rarityName").style.visibility = "hidden";
 
+  // Hide other chart buttons
+  document.getElementById("typeChartButton").style.visibility = "hidden";
+  document.getElementById("factionChartButton").style.visibility = "hidden";
+  document.getElementById("raceChartButton").style.visibility = "hidden";
+
   // Show name input field
   document.getElementById("singleCardName").style.visibility = "visible";
+
+  // Show card header
+  document.getElementById("cardHeader").style.visibility = "visible";
 
   // Hide class, set, rarity buttons
   document.getElementById("classNameButton").style.visibility = "hidden";
@@ -850,6 +1293,50 @@ function showCardName()
 }
 
 // Display card page based on class
+function showChartOptions()
+{
+  // Hide card header
+  document.getElementById("cardHeader").style.visibility = "hidden";
+
+  // Hide card title
+  document.getElementById("cardTitle").style.visibility = "hidden";
+
+  // Hide charts
+  hideCharts();
+
+  // Hide class, name, set, rarity input fields
+  document.getElementById("singleCardName").style.visibility = "hidden";
+  document.getElementById("setName").style.visibility = "hidden";
+  document.getElementById("rarityName").style.visibility = "hidden";
+  document.getElementById("className").style.visibility = "hidden";
+
+  // Hide class, name, set, rarity buttons
+  document.getElementById("cardNameButton").style.visibility = "hidden";
+  document.getElementById("setNameButton").style.visibility = "hidden";
+  document.getElementById("rarityNameButton").style.visibility = "hidden";
+  document.getElementById("classNameButton").style.visibility = "hidden";
+
+  // Hide other chart buttons
+  document.getElementById("classChartButton").style.visibility = "hidden";
+  document.getElementById("setChartButton").style.visibility = "hidden";
+  document.getElementById("rarityChartButton").style.visibility = "hidden";
+
+  // Show card page header
+  document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
+
+  // Show chart buttons
+  document.getElementById("typeChartButton").style.visibility = "visible";
+  document.getElementById("factionChartButton").style.visibility = "visible";
+  document.getElementById("raceChartButton").style.visibility = "visible";
+
+  // Hides card name img, golden button, and card description
+  hideCardName();
+
+  // Display generic card page
+  showCardPage();
+}
+
+// Display card page based on class
 function showCardClass()
 {
   // Reset field
@@ -864,6 +1351,14 @@ function showCardClass()
   // Change span title to class
   document.getElementById("whichSearch").innerHTML = "Class";
 
+  // Hide charts
+  hideCharts();
+
+  // Hide other chart buttons
+  document.getElementById("typeChartButton").style.visibility = "hidden";
+  document.getElementById("factionChartButton").style.visibility = "hidden";
+  document.getElementById("raceChartButton").style.visibility = "hidden";
+
   // Hide name, set, rarity input fields
   document.getElementById("singleCardName").style.visibility = "hidden";
   document.getElementById("setName").style.visibility = "hidden";
@@ -872,16 +1367,26 @@ function showCardClass()
   // Show class input field
   document.getElementById("className").style.visibility = "visible";
 
+  // Show card header
+  document.getElementById("cardHeader").style.visibility = "visible";
+
   // Hide name, set, rarity buttons
   document.getElementById("cardNameButton").style.visibility = "hidden";
   document.getElementById("setNameButton").style.visibility = "hidden";
   document.getElementById("rarityNameButton").style.visibility = "hidden";
+
+  // Hide other chart buttons
+  document.getElementById("setChartButton").style.visibility = "hidden";
+  document.getElementById("rarityChartButton").style.visibility = "hidden";
 
   // Show card page header
   document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
 
   // Show class button
   document.getElementById("classNameButton").style.visibility = "visible";
+
+  // Show chart button
+  document.getElementById("classChartButton").style.visibility = "visible";
 
   // Hides card name img, golden button, and card description
   hideCardName();
@@ -908,6 +1413,13 @@ function showCardSet()
   // Change span title to set
   document.getElementById("whichSearch").innerHTML = "Set";
 
+  // Hide charts
+  hideCharts();
+
+  // Hide other chart buttons
+  document.getElementById("classChartButton").style.visibility = "hidden";
+  document.getElementById("rarityChartButton").style.visibility = "hidden";
+
   // Hide class, name, rarity input fields
   document.getElementById("className").style.visibility = "hidden";
   document.getElementById("singleCardName").style.visibility = "hidden";
@@ -918,6 +1430,14 @@ function showCardSet()
 
   // Show card page header
   document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
+
+  // Show card header
+  document.getElementById("cardHeader").style.visibility = "visible";
+
+  // Hide other chart buttons
+  document.getElementById("typeChartButton").style.visibility = "hidden";
+  document.getElementById("factionChartButton").style.visibility = "hidden";
+  document.getElementById("raceChartButton").style.visibility = "hidden";
 
   // Hide class, name, rarity buttons
   document.getElementById("classNameButton").style.visibility = "hidden";
@@ -932,6 +1452,9 @@ function showCardSet()
 
   // Show set button
   document.getElementById("setNameButton").style.visibility = "visible";
+
+  // Show chart button
+  document.getElementById("setChartButton").style.visibility = "visible";
 
   // Display generic card page
   showCardPage();
@@ -952,6 +1475,18 @@ function showCardRarity()
   // Change span title to rarity
   document.getElementById("whichSearch").innerHTML = "Rarity";
 
+  // Hide charts
+  hideCharts();
+
+  // Hide other chart buttons
+  document.getElementById("typeChartButton").style.visibility = "hidden";
+  document.getElementById("factionChartButton").style.visibility = "hidden";
+  document.getElementById("raceChartButton").style.visibility = "hidden";
+
+  // Hide other chart buttons
+  document.getElementById("classChartButton").style.visibility = "hidden";
+  document.getElementById("setChartButton").style.visibility = "hidden";
+
   // Hide class, set, name input fields
   document.getElementById("className").style.visibility = "hidden";
   document.getElementById("setName").style.visibility = "hidden";
@@ -959,6 +1494,9 @@ function showCardRarity()
 
   // Show rarity input field
   document.getElementById("rarityName").style.visibility = "visible";
+
+  // Show card header
+  document.getElementById("cardHeader").style.visibility = "visible";
 
   // Show card page header
   document.getElementsByClassName("cardPageHeader")[0].style.visibility = "visible";
@@ -970,6 +1508,9 @@ function showCardRarity()
 
   // Show rarity button
   document.getElementById("rarityNameButton").style.visibility = "visible";
+
+  // Show chart button
+  document.getElementById("rarityChartButton").style.visibility = "visible";
 
   // Hides card name img, golden button, and card description
   hideCardName();
@@ -1237,4 +1778,576 @@ function resetCardLists()
   document.getElementsByClassName("fourthList")[0].innerHTML = "";
   // Fifth list
   document.getElementsByClassName("fifthList")[0].innerHTML = "";
+}
+
+/*CHARTS*/
+// Initial class chart Call
+function classChartCall()
+{
+  makingChart = true;
+  makingClassChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+// Class CHART
+function classChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("classChart");
+
+      var classChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Druid', 'Hunter', 'Mage', 'Paladin', 'Priest', 'Rogue', 'Shaman', 'Warlock', 'Warrior', 'Demon Hunter'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [druid, hunter, mage, paladin, priest, rogue, shaman, warlock, warrior, demonHunter
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 26, 76, 0.2)',
+              'rgba(80, 255, 9, 0.2)',
+              'rgba(190, 157, 137, 0.2)',
+              'rgba(30, 157, 255, 0.2)',
+              'rgba(157, 77, 255, 0.2)',
+              'rgba(71, 255, 144, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 26, 76, 1)',
+              'rgba(80, 255, 9, 1)',
+              'rgba(190, 157, 137, 1)',
+              'rgba(30, 157, 255, 1)',
+              'rgba(157, 77, 255, 1)',
+              'rgba(71, 255, 144, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("classChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingClassChart = false;
+  makingChart = false;
+}
+
+// Initial set chart Call
+function setChartCall()
+{
+  makingChart = true;
+  makingSetChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+
+// Set CHART
+function setChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("setChart");
+
+      var setChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Basic', 'Classic', 'Hall of Fame', 'Missions', 'Demo', 'System', 'Slush', 'Promo', 'Naxxramas', 'Goblins vs Gnomes', 'Blackrock Mountain', 'The Grand Tournament', 'Credits', 'Hero Skins', 'Tavern Brawl', 'The League of Explorers', 'Whispers of the Old Gods', 'One Night in Karazhan', 'Mean Streets of Gadgetzan', "Journey to Un'Goro", 'Knights of the Frozen Throne', 'Kobolds & Catacombs', 'The Witchwood', 'The Boomsday Project', "Rastakhan's Rumble", 'Rise of Shadows', 'Taverns of Time', 'Saviors of Uldum', 'Descent of Dragons', "Galakrond's Awakening", 'Ashes of Outland', 'Wild Event', 'Scholomance Academy', 'Battlegrounds', 'Demon Hunter Initiate', 'Darkmoon Faire'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [basic, classic, hallOfFame, missions, demo, system, slush, promo, naxxramas, goblins, blackrock, grand, credits, hero, tavernBrawl, league, whispers, karazhan, gadgetzan, ungoro, knights,kobolds, witchwood, boomsday, rastakhan, shadows, tavernsOfTime, saviors, dragons, galakrond, outland, wildEvent, scholomance, battlegrounds, initiate, darkmoon
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 26, 76, 0.2)',
+              'rgba(80, 255, 9, 0.2)',
+              'rgba(190, 157, 137, 0.2)',
+              'rgba(30, 157, 255, 0.2)',
+              'rgba(157, 77, 255, 0.2)',
+              'rgba(71, 255, 144, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 26, 76, 0.2)',
+              'rgba(80, 255, 9, 0.2)',
+              'rgba(190, 157, 137, 0.2)',
+              'rgba(30, 157, 255, 0.2)',
+              'rgba(157, 77, 255, 0.2)',
+              'rgba(71, 255, 144, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 26, 76, 0.2)',
+              'rgba(80, 255, 9, 0.2)',
+              'rgba(190, 157, 137, 0.2)',
+              'rgba(30, 157, 255, 0.2)',
+              'rgba(157, 77, 255, 0.2)',
+              'rgba(71, 255, 144, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 26, 76, 1)',
+              'rgba(80, 255, 9, 1)',
+              'rgba(190, 157, 137, 1)',
+              'rgba(30, 157, 255, 1)',
+              'rgba(157, 77, 255, 1)',
+              'rgba(71, 255, 144, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 26, 76, 1)',
+              'rgba(80, 255, 9, 1)',
+              'rgba(190, 157, 137, 1)',
+              'rgba(30, 157, 255, 1)',
+              'rgba(157, 77, 255, 1)',
+              'rgba(71, 255, 144, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 26, 76, 1)',
+              'rgba(80, 255, 9, 1)',
+              'rgba(190, 157, 137, 1)',
+              'rgba(30, 157, 255, 1)',
+              'rgba(157, 77, 255, 1)',
+              'rgba(71, 255, 144, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("setChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingSetChart = false;
+  makingChart = false;
+}
+
+// Initial rarity chart Call
+function rarityChartCall()
+{
+  makingChart = true;
+  makingRarityChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+
+// Rarity CHART
+function rarityChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("rarityChart");
+
+      var rarityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Common', 'Free', 'Rare', 'Epic', 'Legendary'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [common, free, rare, epic, legendary
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("rarityChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingRarityChart = false;
+  makingChart = false;
+}
+
+// Initial type chart Call
+function typeChartCall()
+{
+  makingChart = true;
+  makingTypeChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+
+// Type CHART
+function typeChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("typeChart");
+
+      var typeChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Hero', 'Minion', 'Spell', 'Enchantment', 'Weapon', 'Hero Power'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [hero, minion, spell, enchantment, weapon, heroPower
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("typeChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingTypeChart = false;
+  makingChart = false;
+}
+
+// Initial faction chart Call
+function factionChartCall()
+{
+  makingChart = true;
+  makingFactionChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+
+// Faction CHART
+function factionChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("factionChart");
+
+      var factionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Horde', 'Alliance', 'Neutral'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [horde, alliance, neutralFaction
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("factionChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingFactionChart = false;
+  makingChart = false;
+}
+
+// Initial class chart Call
+function classRaceCall()
+{
+  makingChart = true;
+  makingRaceChart = true;
+
+  // Get all cards
+  getAllCards();
+}
+
+// Race CHART
+function raceChart()
+{
+  // Make the chart
+  let ctx = document.getElementById("raceChart");
+
+      var raceChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Orc', 'Murloc', 'Demon', 'Mech', 'Elemental', 'Beast', 'Totem', 'Pirate', 'Dragon', 'All'
+          ],
+          datasets: [{
+            label: '# of Cards',
+            data: [orc, murloc, demon, mech, elemental, beast, totem, pirate, dragon, all
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 26, 76, 0.2)',
+              'rgba(80, 255, 9, 0.2)',
+              'rgba(190, 157, 137, 0.2)',
+              'rgba(30, 157, 255, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 26, 76, 1)',
+              'rgba(80, 255, 9, 1)',
+              'rgba(190, 157, 137, 1)',
+              'rgba(30, 157, 255, 1)'
+            ],
+            borderWidth: 1
+
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+
+  console.log("Total cards: " + totalCards);
+  console.log("Stored cards: " + storedCards);
+  // Hide card name
+  hideCardName();
+
+  // Hide card lists
+  document.getElementsByClassName("cardLists")[0].style.visibility = "hidden";
+  document.getElementsByClassName("cardTitle")[0].style.visibility = "hidden";
+
+  // Show chart
+  document.getElementById("raceChart").style.visibility = "visible";
+  document.getElementsByClassName("charts")[0].style.visibility = "visible";
+  showCardPage();
+
+  makingRaceChart = false;
+  makingChart = false;
+}
+
+// Hide charts
+function hideCharts()
+{
+  document.getElementById("classChart").style.visibility = "hidden";
+  document.getElementById("setChart").style.visibility = "hidden";
+  document.getElementById("rarityChart").style.visibility = "hidden";
+  document.getElementById("typeChart").style.visibility = "hidden";
+  document.getElementById("factionChart").style.visibility = "hidden";
+  document.getElementById("raceChart").style.visibility = "hidden";
+}
+
+
+// Coming soon
+function comingSoon()
+{
+  // Display generic card page
+  showCardPage();
+  hideCharts();
+  hideCardName();
+
+  // Hide card header
+  document.getElementById("cardHeader").style.visibility = "hidden";
+
+  // Hide other chart buttons
+  document.getElementById("typeChartButton").style.visibility = "hidden";
+  document.getElementById("factionChartButton").style.visibility = "hidden";
+  document.getElementById("raceChartButton").style.visibility = "hidden";
+  document.getElementById("classChartButton").style.visibility = "hidden";
+
+  // Hide name, set, rarity input fields
+  document.getElementById("singleCardName").style.visibility = "hidden";
+  document.getElementById("setName").style.visibility = "hidden";
+  document.getElementById("rarityName").style.visibility = "hidden";
+  document.getElementById("className").style.visibility = "hidden";
+
+  // Hide name, set, rarity buttons
+  document.getElementById("cardNameButton").style.visibility = "hidden";
+  document.getElementById("setNameButton").style.visibility = "hidden";
+  document.getElementById("rarityNameButton").style.visibility = "hidden";
+  document.getElementById("classNameButton").style.visibility = "hidden";
+
+  // Hide other chart buttons
+  document.getElementById("setChartButton").style.visibility = "hidden";
+  document.getElementById("rarityChartButton").style.visibility = "hidden";
+  document.getElementById("classChartButton").style.visibility = "hidden";
+
+  document.getElementById("cardTitle").style.visibility = "visible";
+  document.getElementById("cardTitle").innerHTML = "Coming soon!"
 }
